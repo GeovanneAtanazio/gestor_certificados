@@ -67,7 +67,7 @@ class User extends Authenticatable
     ];
 
     /**
-     * Get the curso's nivelCurso.
+     * Get the user's curso.
      *
      * @return string
      */
@@ -77,7 +77,7 @@ class User extends Authenticatable
     }
 
     /**
-     * Set the curso's nivelCurso.
+     * Set the user's curso.
      *
      * @param  int  $value
      * @return void
@@ -90,7 +90,7 @@ class User extends Authenticatable
     }
 
     /**
-     * Get the familia that owns the cidadao.
+     * Get the curso that owns the user.
      *
      * @return Curso
      */

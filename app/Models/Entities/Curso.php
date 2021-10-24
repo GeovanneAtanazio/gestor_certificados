@@ -66,7 +66,7 @@ class Curso extends Model
     }
 
     /**
-     * Get the familia that owns the cidadao.
+     * Get the nivelCurso that owns the curso.
      *
      * @return NivelCurso
      */

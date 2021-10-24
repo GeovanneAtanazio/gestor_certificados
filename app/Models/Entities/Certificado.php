@@ -80,7 +80,7 @@ class Certificado extends Model
     }
 
     /**
-     * Set the curso's aluno.
+     * Set the certificado's aluno.
      *
      * @param  int  $value
      * @return void
@@ -93,7 +93,7 @@ class Certificado extends Model
     }
 
     /**
-     * Set the curso's statusCertificado.
+     * Set the certificado's statusCertificado.
      *
      * @param  int  $value
      * @return void
@@ -106,7 +106,7 @@ class Certificado extends Model
     }
 
     /**
-     * Set the curso's tipoCertificado.
+     * Set the certificado's tipoCertificado.
      *
      * @param  int  $value
      * @return void
@@ -139,7 +139,7 @@ class Certificado extends Model
     }
 
     /**
-     * Get the statusCertificado that owns the certificado.
+     * Get the tipoCertificado that owns the certificado.
      *
      * @return TipoCertificado
      */
@@ -149,7 +149,7 @@ class Certificado extends Model
     }
 
     /**
-     * Get the statusCertificado that owns the certificado.
+     * Get the comentario that owns the certificado.
      *
      * @return Comentario
      */

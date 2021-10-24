@@ -56,7 +56,7 @@ class Comentario extends Model
     }
 
     /**
-     * Get the comentario's certificado.
+     * Get the comentario's usuario.
      *
      * @return string
      */
@@ -66,7 +66,7 @@ class Comentario extends Model
     }
 
     /**
-     * Set the curso's aluno.
+     * Set the comentario's certificado.
      *
      * @param  int  $value
      * @return void
@@ -79,7 +79,7 @@ class Comentario extends Model
     }
 
     /**
-     * Set the curso's aluno.
+     * Set the comentario's usuario.
      *
      * @param  int  $value
      * @return void
@@ -92,7 +92,7 @@ class Comentario extends Model
     }
 
     /**
-     * Get the statusCertificado that owns the certificado.
+     * Get the certificado that owns the comentario.
      *
      * @return Certificado
      */
@@ -102,7 +102,7 @@ class Comentario extends Model
     }
 
     /**
-     * Get the statusCertificado that owns the certificado.
+     * Get the usuario that owns the comentario.
      *
      * @return User
      */
