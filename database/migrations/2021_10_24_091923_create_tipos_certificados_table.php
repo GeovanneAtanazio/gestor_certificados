@@ -16,7 +16,7 @@ class CreateTiposCertificadosTable extends Migration
         Schema::create('tipos_certificados', function (Blueprint $table) {
             $table->id();
 
-            $table->string('name');
+            $table->string('nome');
 
             $table->timestamps();
         });
