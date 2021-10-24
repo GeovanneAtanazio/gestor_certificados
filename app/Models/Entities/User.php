@@ -28,6 +28,10 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'carga_horaria_obrigatoria',
+        'carga_horaria_optativa',
+        'carga_horaria_complementar',
+
     ];
 
     /**
@@ -38,6 +42,10 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
+        'curso_id',
+        'created_at',
+        'updated_at',
+        'cursoRelationship',
     ];
 
     /**
@@ -54,7 +62,41 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $appends = [];
+    protected $appends = [
+        'curso',
+    ];
 
+    /**
+     * Get the user's curso.
+     *
+     * @return string
+     */
+    public function getCursoAttribute()
+    {
+        return $this->cursoRelationship;
+    }
+
+    /**
+     * Set the user's curso.
+     *
+     * @param  int  $value
+     * @return void
+     */
+    public function setCursoAttribute($value)
+    {
+        if(isset($value)){
+            $this->attributes['curso_id'] = Curso::where('id', $value)->first()->id;
+        }
+    }
+
+    /**
+     * Get the curso that owns the user.
+     *
+     * @return Curso
+     */
+    public function cursoRelationship()
+    {
+        return $this->belongsTo(Curso::class,'curso_id');
+    }
 
 }
