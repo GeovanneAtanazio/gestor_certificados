@@ -13,6 +13,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', 'HomeController@index');
+
+Auth::routes();
+
+Route::group(['middleware'=>['auth','prevent-back-history']], function (){
+
+    Route::get('/home', function () {
+        return view('home');
+    });
+
 });
+
