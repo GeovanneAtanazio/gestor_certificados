@@ -13,6 +13,10 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(array(
             UserSeeder::class,
+            NivelCursoSeeder::class,
+            CursoSeeder::class,
+            StatusCertificadoSeeder::class,
+            TipoCertificadoSeeder::class,
         ));
     }
 }
