@@ -16,7 +16,7 @@ class CreateStatusCertificadosTable extends Migration
         Schema::create('status_certificados', function (Blueprint $table) {
             $table->id();
 
-            $table->string('name');
+            $table->string('nome');
 
             $table->timestamps();
         });
