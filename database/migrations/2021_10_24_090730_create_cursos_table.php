@@ -18,7 +18,8 @@ class CreateCursosTable extends Migration
 
             $table->string('nome');
             $table->integer('carga_horaria_obrigatoria');
-            $table->integer('carga_horaria_complementar');
+            $table->integer('carga_horaria_optativa')->nullable();
+            $table->integer('carga_horaria_complementar')->nullable();
             $table->foreignId('nivel_curso_id')->constrained('niveis_cursos');
 
             $table->timestamps();

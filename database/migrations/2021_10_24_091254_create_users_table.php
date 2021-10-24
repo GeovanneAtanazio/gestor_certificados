@@ -21,6 +21,7 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->integer('carga_horaria_obrigatoria')->nullable();
+            $table->integer('carga_horaria_optativa')->nullable();
             $table->integer('carga_horaria_complementar')->nullable();
             $table->rememberToken();
 
