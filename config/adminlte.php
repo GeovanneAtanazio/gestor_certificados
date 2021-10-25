@@ -187,7 +187,7 @@ return [
     */
 
     'use_route_url' => false,
-    'dashboard_url' => '/home',
+    'dashboard_url' => '/certificado',
     'logout_url' => 'logout',
     'login_url' => 'login',
     'register_url' => 'register',
@@ -228,9 +228,16 @@ return [
     'menu' => [
         ['header' => ' Módulos'],
         [
-            'text'        => 'Cidadãos',
-            'icon'        => 'fas fa-user-alt fa-2x',
+            'text'        => 'Certificados',
+            'route'       => 'certificado.index',
+            'icon'        => 'fas fa-file-contract fa-2x',
         ],
+        [
+            'text'        => 'Alunos',
+            'route'       => 'aluno.index',
+            'icon'        => 'fas fa-user-graduate fa-2x',
+        ],
+
     ],
 
     /*

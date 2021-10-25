@@ -1,0 +1,76 @@
+@extends('adminlte::page')
+
+@section('title', 'Certificados')
+
+@section('content_header')
+    <h1>Certificados {{isset($aluno)?'de '.$aluno->name:null}}</h1>
+    @if (isset($aluno))
+        <div class="progress" style="margin-top: 8px">
+            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="{{$porcentagem}}" aria-valuemin="0" aria-valuemax="100" style="width: {{$porcentagem}}%">{{$aluno->carga_horaria_complementar}}/{{$aluno->curso->carga_horaria_complementar}}</div>
+        </div>
+    @endif
+@stop
+
+@section('content')
+    @if (Session::has('check'))
+        <div class="alert alert-success alert-dismissible" role="alert">
+            {{Session::get('check')}}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    @endif
+
+    @if (isset($aluno)&&($aluno->carga_horaria_complementar<$aluno->curso->carga_horaria_complementar))
+        <div class="container-fluid" style="margin: 0px 0px 16px">
+            <a href="{{route('certificado.create', Crypt::encrypt($aluno->id))}}" class="btn btn-outline-primary">+ Criar Novo</a>
+        </div>
+    @endif
+
+    <div class="container-fluid">
+        <table id="table_id" class="display">
+            <thead>
+                <tr>
+                    <th>Titulo</th>
+                    <th>Aluno</th>
+                    <th>Carga Horária</th>
+                    <th>Tipo</th>
+                    <th>Situação</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ( $certificados as $certificado )
+                    <tr>
+                        <td>{{$certificado->titulo}}</td>
+                        <td>{{$certificado->aluno->name}}</td>
+                        <td>{{$certificado->carga_horaria}}</td>
+                        <td>{{$certificado->tipoCertificado->nome}}</td>
+                        <td>
+                            <h5>
+                                @if ($certificado->statusCertificado->id==1)
+                                    <span class="badge badge-warning">
+                                @elseif ($certificado->statusCertificado->id==2)
+                                    <span class="badge badge-success">
+                                @elseif ($certificado->statusCertificado->id==3)
+                                    <span class="badge badge-danger">
+                                @endif
+                                        {{$certificado->statusCertificado->nome}}
+                                    </span>
+                            <h5>
+                        </td>
+                        <td style="display: flex">
+                            <a href="{{route('certificado.show', Crypt::encrypt($certificado->id))}}" class="btn btn-info" style="color: white; margin: 0px 4px">Visualizar</a>
+                            @if ($certificado->statusCertificado->id!=2)
+                                {!! Form::open(['route' => array('certificado.destroy', Crypt::encrypt($certificado->id)), 'method' => 'DELETE', 'name' => 'form'])!!}
+                                    {!! Form::submit('Excluir', ['class' => 'btn btn-danger', $form??null, 'style'=>"color: white; margin: 0px 4px"]); !!}
+                                {!! Form::close() !!}
+                            @endif
+                        </td>
+
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
+@stop

@@ -13,8 +13,8 @@ class StatusCertificadoSeeder extends Seeder
     {
         $status_certificados = array(
             'Em Análise',
-            'Deferido',
-            'Indeferido',
+            'Homologado ',
+            'Não-Homologado',
         );
 
         foreach($status_certificados as $status_certificado){

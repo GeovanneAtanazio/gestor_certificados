@@ -19,9 +19,15 @@ Auth::routes();
 
 Route::group(['middleware'=>['auth','prevent-back-history']], function (){
 
-    Route::get('/home', function () {
-        return view('home');
-    });
+    Route::get('/home', 'HomeController@teste');
+    Route::resource('aluno', AlunoController::class)->only([
+        'index', 'show'
+    ]);
+    Route::resource('certificado', CertificadoController::class)->except([
+        'create','store'
+    ]);
+    Route::get('/certificado/create/{id}', 'CertificadoController@create')->name('certificado.create');
+    Route::post('/certificado/{id}', 'CertificadoController@store')->name('certificado.store');
 
 });
 

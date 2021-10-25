@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Http\Request;
 use App\Models\Entities\NewRole;
+use App\Models\Entities\User;
 use App\Models\Converters;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Auth;

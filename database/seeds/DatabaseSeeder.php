@@ -17,6 +17,9 @@ class DatabaseSeeder extends Seeder
             CursoSeeder::class,
             StatusCertificadoSeeder::class,
             TipoCertificadoSeeder::class,
+            RoleSeeder::class,
+            ModelHasRoleSeeder::class,
+            CertificadoSeeder::class,
         ));
     }
 }

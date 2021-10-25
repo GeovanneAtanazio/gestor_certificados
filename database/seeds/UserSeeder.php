@@ -27,24 +27,40 @@ class UserSeeder extends Seeder
             'name' => 'Gabriel Barbosa',
             'email'=> 'gabigol@unit.br',
             'password'  =>  bcrypt('123456789'),
+            'carga_horaria_obrigatoria' => '30',
+            'carga_horaria_optativa' => '4',
+            'carga_horaria_complementar' => '50',
+            'curso_id' => '1'
         ]);
 
         DB::table('users')->insert([
             'name' => 'Giorgian De Arrascaeta',
             'email'=> 'de_arrascaeta@unit.br',
             'password'  =>  bcrypt('123456789'),
+            'carga_horaria_obrigatoria' => '30',
+            'carga_horaria_optativa' => '4',
+            'carga_horaria_complementar' => '50',
+            'curso_id' => '3',
         ]);
 
         DB::table('users')->insert([
             'name' => 'Bruno Henrique',
             'email'=> 'oto_pata_mar@unit.br',
             'password'  =>  bcrypt('123456789'),
+            'carga_horaria_obrigatoria' => '30',
+            'carga_horaria_optativa' => '4',
+            'carga_horaria_complementar' => '50',
+            'curso_id' => '2',
         ]);
 
         DB::table('users')->insert([
             'name' => 'Gerson Coringa',
             'email'=> 'vapo_vapo@unit.br',
             'password'  =>  bcrypt('123456789'),
+            'carga_horaria_obrigatoria' => '30',
+            'carga_horaria_optativa' => '4',
+            'carga_horaria_complementar' => '50',
+            'curso_id' => '1',
         ]);
 
     }

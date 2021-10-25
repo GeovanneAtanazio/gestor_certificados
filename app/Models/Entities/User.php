@@ -46,6 +46,7 @@ class User extends Authenticatable
         'created_at',
         'updated_at',
         'cursoRelationship',
+        'rolesRelationship',
     ];
 
     /**
@@ -64,6 +65,7 @@ class User extends Authenticatable
      */
     protected $appends = [
         'curso',
+        'roles',
     ];
 
     /**
@@ -74,6 +76,16 @@ class User extends Authenticatable
     public function getCursoAttribute()
     {
         return $this->cursoRelationship;
+    }
+
+    /**
+     * Get the user's role.
+     *
+     * @return array
+     */
+    public function getRolesAttribute()
+    {
+        return $this->rolesRelationship;
     }
 
     /**
@@ -90,6 +102,23 @@ class User extends Authenticatable
     }
 
     /**
+     * Set the user's role.
+     *
+     * @param  array  $value
+     * @return void
+     */
+    public function setRolesAttribute($value) {
+        if(isset($this->roles)){
+            foreach($this->roles as $role){
+                $this->removeRole($role->name);
+                break;
+            }
+        }
+        $role = NewRole::where('id', $value)->get()->first();
+        $this->assignRole($role->name);
+    }
+
+    /**
      * Get the curso that owns the user.
      *
      * @return Curso
@@ -97,6 +126,21 @@ class User extends Authenticatable
     public function cursoRelationship()
     {
         return $this->belongsTo(Curso::class,'curso_id');
+    }
+
+    /**
+     * The roles that belong to the user.
+     *
+     * @return Role
+     */
+    public function rolesRelationship()
+    {
+        return $this->belongsToMany(NewRole::class, 'model_has_roles','model_id','role_id');
+    }
+
+    public function certificadoRelationship()
+    {
+        return $this->hasMany(Certificado::class,'user_id','id');
     }
 
 }
