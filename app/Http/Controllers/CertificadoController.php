@@ -10,6 +10,7 @@ use App\Models\Entities\TipoCertificado;
 use App\Models\Entities\StatusCertificado;
 use App\Models\Converters;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\CertificadoRequest;
 
 class CertificadoController extends Controller
 {
@@ -70,7 +71,7 @@ class CertificadoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, $id)
+    public function store(CertificadoRequest $request, $id)
     {
         $certificado = $this->certificados->create([
             'titulo' => $request->titulo,
@@ -116,7 +117,7 @@ class CertificadoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CertificadoRequest $request, $id)
     {
         $certificado = $this->certificados->find(Crypt::decrypt($id));
         $certificado = $certificado->update($request->all());
