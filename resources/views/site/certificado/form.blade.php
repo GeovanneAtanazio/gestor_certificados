@@ -31,20 +31,26 @@
     @endif
     <div class="container-fluid">
         {!!Form::label('titulo', 'Título:', ['class' => 'form-check-label'])!!}
-        {!!Form::text('titulo',  isset($certificado) ? $certificado->titulo : null , ['class' => $errors->has('titulo') ? 'form-control is-invalid' : 'form-control', isset($form) ? $form : null])!!}
+        {!!Form::text('titulo',  isset($certificado) ? $certificado->titulo : null , ['class' => $errors->has('titulo') ? 'form-control is-invalid' : 'form-control', $form??null])!!}
 
         {!!Form::label('aluno', 'Aluno:', ['class' => 'form-check-label'])!!}
         {!!Form::text('aluno',  isset($certificado) ? $certificado->aluno->name : $aluno->name , ['class' => $errors->has('aluno') ? 'form-control is-invalid' : 'form-control', 'disabled'])!!}
 
         {!! Form::label('carga_horaria','Carga Horária:', ['class' => 'form-check-label']) !!}
-        {!!Form::number('carga_horaria', isset($certificado) ? $certificado->carga_horaria : null , ['class' => $errors->has('carga_horaria') ? 'form-control is-invalid' : 'form-control',  'placeholder' => 'Somente Números', 'maxlength' =>  "5", 'pattern' => '([0-9]{1-5})', isset($form) ? $form : null])!!}
+        {!!Form::text('carga_horaria', isset($certificado) ? $certificado->carga_horaria : null , ['class' => $errors->has('carga_horaria') ? 'form-control is-invalid' : 'form-control',  'placeholder' => 'Somente Números', 'maxlength' =>  "5", 'pattern' => '([0-9]{5})', $form??null])!!}
 
         {!!Form::label('tipoCertificado', 'Tipo Certificado:', ['class' => 'form-check-label'])!!}
-        {!!Form::select('tipoCertificado', $tiposCertificados, isset($certificado) ? $certificado->tipoCertificado->id : null, ['class' => 'form-control', isset($form) ? $form : null,'id'=> 'tipoCertificado'])!!}
+        {!!Form::select('tipoCertificado', $tiposCertificados, isset($certificado) ? $certificado->tipoCertificado->id : null, ['class' => 'form-control', isset($form) ? $form : null,'id'=> 'tipoCertificado', $form??null])!!}
 
         @if ((isset($certificado))||(Auth::user()->roles->first()->id==1))
-             {!!Form::label('statusCertificado', 'Situação:', ['class' => 'form-check-label'])!!}
-            {!!Form::select('statusCertificado', $statusCertificados, isset($certificado) ? $certificado->statusCertificado->id : null, ['class' => 'form-control', Auth::user()->roles->first()->id==1 ? null : 'disabled','id'=> 'tipoCertificado'])!!}
+            {!!Form::label('statusCertificado', 'Situação:', ['class' => 'form-check-label'])!!}
+            {!!Form::select('statusCertificado', $statusCertificados, isset($certificado) ? $certificado->statusCertificado->id : null, ['class' => 'form-control', Auth::user()->roles->first()->id==1 ? null : 'disabled','id'=> 'statusCertificado', $form??null])!!}
+        @endif
+
+        @if(isset($certificado))
+            <button id="edit" type="button" class="btn btn-info" onclick="abilitarEdicao($(this))">
+                {{isset($form)?'Modificar':'Preservar'}}
+            </button>
         @endif
 
         <button id='salvar' type="button" class="btn btn-warning" data-toggle="modal" data-target="#confirmacaoModal" {{isset($form) ? $form : null}}>
@@ -70,6 +76,44 @@
 
 @section('js')
     <script>
-
+         $(document).ready(function() {
+            $("#carga_horaria").keyup(function() {
+                $("#carga_horaria").val(this.value.match(/[0-9]*/));
+            });
+        });
     </script>
+    @if(isset($certificado))
+        <script>
+            function desabilitarEdicao(botao) {
+                //Bloqueia Formulario
+                $("#titulo").prop('disabled', true);
+                $("#carga_horaria").prop('disabled', true);
+                $("#tipoCertificado").prop('disabled', true);
+                $("#statusCertificado").prop('disabled', true);
+                $("#salvar").prop('disabled', true);
+                //Modifica Texto do Botao
+                $(botao).html('Modificar');
+                //Modifica função do Botao
+                botao.attr('onclick', 'abilitarEdicao($(this));');
+
+                //Reseta formulário
+                $("#titulo").val("{{$certificado->titulo}}");
+                $("#carga_horaria").val("{{$certificado->carga_horaria}}");
+                $("#tipoCertificado").val("{{$certificado->tipoCertificado->id}}");
+                $("#statusCertificado").val("{{$certificado->statusCertificado->id}}");
+
+
+            }
+            function abilitarEdicao(botao) {
+                $("#titulo").prop('disabled', false);
+                $("#carga_horaria").prop('disabled', false);
+                $("#tipoCertificado").prop('disabled', false);
+                $("#statusCertificado").prop('disabled', false);
+                $("#salvar").prop('disabled', false);
+
+                $(botao).html('Preservar');
+                botao.attr('onclick', 'desabilitarEdicao($(this));');
+            }
+        </script>
+    @endif
 @stop

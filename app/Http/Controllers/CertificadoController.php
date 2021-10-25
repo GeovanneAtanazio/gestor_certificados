@@ -95,7 +95,8 @@ class CertificadoController extends Controller
         $certificado = $this->certificados->find(Crypt::decrypt($id));
         $tiposCertificados = $this->tiposCertificados;
         $statusCertificados = $this->statusCertificados;
-        return view('site.certificado.form',compact('certificado','tiposCertificados','statusCertificados'));
+        $form = 'disabled';
+        return view('site.certificado.form',compact('certificado','tiposCertificados','statusCertificados','form'));
 
     }
 
