@@ -20,7 +20,7 @@ class CreateCertificadosTable extends Migration
             $table->integer('carga_horaria');
 
             $table->foreignId('user_id')->constrained('users');
-            $table->foreignId('status_certificado_id')->constrained('status');
+            $table->foreignId('status_certificado_id')->constrained('status_certificados');
             $table->foreignId('tipo_certificado_id')->constrained('tipos_certificados');
 
             $table->timestamps();
