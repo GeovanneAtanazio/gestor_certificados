@@ -61,11 +61,7 @@
                         </td>
                         <td >
                             <a href="{{route('certificado.show', Crypt::encrypt($certificado->id))}}" class="btn btn-info">Visualizar</a>
-                            @if ($certificado->statusCertificado->id!=2)
-                                {!! Form::open(['route' => array('certificado.destroy', Crypt::encrypt($certificado->id)), 'method' => 'DELETE', 'name' => 'form'])!!}
-                                    {!! Form::submit('Excluir', ['class' => 'btn btn-danger', $form??null]); !!}
-                                {!! Form::close() !!}
-                            @endif
+                            
                         </td>
 
                     </tr>

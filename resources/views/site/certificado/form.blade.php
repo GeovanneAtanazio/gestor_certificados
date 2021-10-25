@@ -37,7 +37,7 @@
         {!!Form::text('aluno',  isset($certificado) ? $certificado->aluno->name : $aluno->name , ['class' => $errors->has('aluno') ? 'form-control is-invalid' : 'form-control', 'disabled'])!!}
 
         {!! Form::label('carga_horaria','Carga Horária:', ['class' => 'form-check-label']) !!}
-        {!!Form::text('carga_horaria', isset($certificado) ? $certificado->carga_horaria : null , ['class' => $errors->has('carga_horaria') ? 'form-control is-invalid' : 'form-control',  'placeholder' => 'Somente Números', 'maxlength' =>  "5", 'pattern' => '([0-9]{5})', $form??null])!!}
+        {!!Form::text('carga_horaria', isset($certificado) ? $certificado->carga_horaria : null , ['class' => $errors->has('carga_horaria') ? 'form-control is-invalid' : 'form-control',  'placeholder' => 'Somente Números', 'maxlength' =>  "5", 'pattern' => '([0-9]{1-5})', $form??null])!!}
 
         {!!Form::label('tipoCertificado', 'Tipo Certificado:', ['class' => 'form-check-label'])!!}
         {!!Form::select('tipoCertificado', $tiposCertificados, isset($certificado) ? $certificado->tipoCertificado->id : null, ['class' => 'form-control', isset($form) ? $form : null,'id'=> 'tipoCertificado', $form??null])!!}
@@ -56,12 +56,34 @@
         <button id='salvar' type="button" class="btn btn-warning" data-toggle="modal" data-target="#confirmacaoModal" {{isset($form) ? $form : null}}>
             Salvar
         </button>
+
+        @if ($certificado->statusCertificado->id!=2)
+            <button id='excluir' type="button" class="btn btn-danger" data-toggle="modal" data-target="#exclusaoModal" {{isset($form) ? $form : null}}>
+                Excluir
+            </button>
+            <!-- Modal -->
+            <div class="modal fade" id="exclusaoModal" tabindex="-1" role="dialog" aria-labelledby="exclusaoModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            Você deseja excluir este certificado?
+                            <hr/>
+                            <button type="button" class="btn btn btn-success" data-dismiss="modal">Não</button>
+                            {!! Form::open(['route' => array('certificado.destroy', Crypt::encrypt($certificado->id)), 'method' => 'DELETE', 'name' => 'form'])!!}
+                                {!! Form::submit('Sim', ['class' => 'btn btn-danger']); !!}
+                            {!! Form::close() !!}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        @endif
         <!-- Modal -->
         <div class="modal fade" id="confirmacaoModal" tabindex="-1" role="dialog" aria-labelledby="confirmacaoModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-body">
-                        {{isset($familia) ? 'Você deseja salvar as alterações feitas?' : 'Você deseja cadastrar um novo certificado?'}}
+                        {{isset($certificado) ? 'Você deseja salvar as alterações feitas?' : 'Você deseja cadastrar um novo certificado?'}}
                         <hr/>
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Não</button>
                         {!! Form::submit('Sim', ['class' => 'btn btn-success']); !!}
@@ -91,6 +113,7 @@
                 $("#tipoCertificado").prop('disabled', true);
                 $("#statusCertificado").prop('disabled', true);
                 $("#salvar").prop('disabled', true);
+                $("#excluir").prop('disabled', true);
                 //Modifica Texto do Botao
                 $(botao).html('Modificar');
                 //Modifica função do Botao
@@ -110,6 +133,7 @@
                 $("#tipoCertificado").prop('disabled', false);
                 $("#statusCertificado").prop('disabled', false);
                 $("#salvar").prop('disabled', false);
+                $("#excluir").prop('disabled', false);
 
                 $(botao).html('Preservar');
                 botao.attr('onclick', 'desabilitarEdicao($(this));');

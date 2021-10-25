@@ -135,7 +135,9 @@ class CertificadoController extends Controller
     public function destroy($id)
     {
         $certificado = $this->certificados->find(Crypt::decrypt($id));
+        $aluno = $certificado->aluno->id;
         $certificado->delete();
-        return redirect()->route('aluno.show', Crypt::encrypt($certificado->aluno->id));
+        $check = 'Certificado excluído com sucesso!';
+        return redirect()->route('aluno.show', Crypt::encrypt($aluno))->with('check', $check);
     }
 }
