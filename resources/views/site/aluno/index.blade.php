@@ -24,7 +24,7 @@
                         <td> {{$aluno->curso->nome}} </td>
                         <td> {{$aluno->carga_horaria_complementar}}/{{$aluno->curso->carga_horaria_complementar}}</td>
                         <td>
-                            <a href="{{route('aluno.show', Crypt::encrypt($aluno->id))}}" class="btn btn-info" style="color: white">Visualizar</a>
+                            <a href="{{route('aluno.show', Crypt::encrypt($aluno->id))}}" class="btn btn-info">Visualizar</a>
                         </td>
                     </tr>
                 @endforeach

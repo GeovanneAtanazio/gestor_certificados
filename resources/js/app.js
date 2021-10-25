@@ -51,13 +51,6 @@ $(document).ready( function () {
     });
 } );
 
-//método para bloquear botão de voltar do navegador
-$(document).ready(function() {
-    window.history.pushState(null, "", window.location.href);
-    window.onpopstate = function() {
-        window.history.pushState(null, "", window.location.href);
-    };
-});
 
 //DataTables Plugins: Accent Neutralise
 (function(){

@@ -5,7 +5,7 @@
 @section('content_header')
     <h1>Certificados {{isset($aluno)?'de '.$aluno->name:null}}</h1>
     @if (isset($aluno))
-        <div class="progress" style="margin-top: 8px">
+        <div class="progress">
             <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="{{$porcentagem}}" aria-valuemin="0" aria-valuemax="100" style="width: {{$porcentagem}}%">{{$aluno->carga_horaria_complementar}}/{{$aluno->curso->carga_horaria_complementar}}</div>
         </div>
     @endif
@@ -22,7 +22,7 @@
     @endif
 
     @if (isset($aluno)&&($aluno->carga_horaria_complementar<$aluno->curso->carga_horaria_complementar))
-        <div class="container-fluid" style="margin: 0px 0px 16px">
+        <div class="container-fluid create-section">
             <a href="{{route('certificado.create', Crypt::encrypt($aluno->id))}}" class="btn btn-outline-primary">+ Criar Novo</a>
         </div>
     @endif
@@ -59,11 +59,11 @@
                                     </span>
                             <h5>
                         </td>
-                        <td style="display: flex">
-                            <a href="{{route('certificado.show', Crypt::encrypt($certificado->id))}}" class="btn btn-info" style="color: white; margin: 0px 4px">Visualizar</a>
+                        <td >
+                            <a href="{{route('certificado.show', Crypt::encrypt($certificado->id))}}" class="btn btn-info">Visualizar</a>
                             @if ($certificado->statusCertificado->id!=2)
                                 {!! Form::open(['route' => array('certificado.destroy', Crypt::encrypt($certificado->id)), 'method' => 'DELETE', 'name' => 'form'])!!}
-                                    {!! Form::submit('Excluir', ['class' => 'btn btn-danger', $form??null, 'style'=>"color: white; margin: 0px 4px"]); !!}
+                                    {!! Form::submit('Excluir', ['class' => 'btn btn-danger', $form??null]); !!}
                                 {!! Form::close() !!}
                             @endif
                         </td>

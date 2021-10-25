@@ -38,7 +38,7 @@
             {!!Form::select('statusCertificado', $statusCertificados, isset($certificado) ? $certificado->statusCertificado->id : null, ['class' => 'form-control', Auth::user()->roles->first()->id==1 ? null : 'disabled','id'=> 'tipoCertificado'])!!}
         @endif
 
-        <button id='salvar' type="button" class="btn btn-warning" data-toggle="modal" data-target="#confirmacaoModal" {{isset($form) ? $form : null}} style="margin: 8px 4px">
+        <button id='salvar' type="button" class="btn btn-warning" data-toggle="modal" data-target="#confirmacaoModal" {{isset($form) ? $form : null}}>
             Salvar
         </button>
         <!-- Modal -->
