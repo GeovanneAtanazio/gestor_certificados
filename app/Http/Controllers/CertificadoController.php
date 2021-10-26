@@ -31,6 +31,12 @@ class CertificadoController extends Controller
         $this->tiposCertificados = Converters::convert_object_to_array(TipoCertificado::all(),'id','nome');
         $this->statusCertificados = Converters::convert_object_to_array(StatusCertificado::all(),'id','nome');
         $this->aluno = new User;
+        $this->middleware('permission:certificado.index', ['only' => ['index']]);
+        $this->middleware('permission:certificado.create', ['only' => ['create']]);
+        $this->middleware('permission:certificado.store', ['only' => ['store']]);
+        $this->middleware('permission:certificado.show', ['only' => ['show']]);
+        $this->middleware('permission:certificado.update', ['only' => ['update']]);
+        $this->middleware('permission:certificado.destroy', ['only' => ['destroy']]);
     }
 
     /**
@@ -53,6 +59,7 @@ class CertificadoController extends Controller
     /**
      * Show the form for creating a new resource.
      *
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function create($id)
@@ -68,6 +75,7 @@ class CertificadoController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function store(CertificadoRequest $request, $id)
