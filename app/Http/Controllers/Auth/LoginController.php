@@ -8,7 +8,7 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use App\Models\Logger;
-use App\Models\ValidaLogin;
+
 
 class LoginController extends Controller
 {
@@ -40,7 +40,7 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
-        $this->logger = new Logger();
+        $this->logger = new Logger;
     }
 
     /**
@@ -52,6 +52,6 @@ class LoginController extends Controller
      */
     protected function authenticated(Request $request, $user)
     {
-        //
+        $this->logger->log('info',"Entrou no sistema;");
     }
 }

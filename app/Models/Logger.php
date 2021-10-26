@@ -10,7 +10,7 @@ class Logger
     public static function log($level, $message)
     {
         if( isset(Auth::user()->email) ){
-            $message = '['.Auth::user()->email.' - '.Auth::user()->cpf.'] - '.$message;
+            $message = '['.Auth::user()->email.'] - '.$message;
         }else{
             $message = '[N/A] - '.$message;
         };
