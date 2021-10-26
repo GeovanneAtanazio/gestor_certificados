@@ -230,11 +230,13 @@ return [
         [
             'text'        => 'Certificados',
             'route'       => 'certificado.index',
+            'can'           => 'certificado.index',
             'icon'        => 'fas fa-file-contract fa-2x',
         ],
         [
             'text'        => 'Alunos',
             'route'       => 'aluno.index',
+            'can'           => 'aluno.index',
             'icon'        => 'fas fa-user-graduate fa-2x',
         ],
 

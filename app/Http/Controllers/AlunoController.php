@@ -22,14 +22,27 @@ class AlunoController extends Controller
     public function __construct(User $users)
     {
         $this->alunos = $users;
+        $this->middleware('permission:aluno.index', ['only' => ['index']]);
+        $this->middleware('permission:aluno.show', ['only' => ['show']]);
     }
 
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index()
     {
         $alunos = $this->alunos->whereHas("roles", function($q){ $q->where("name", "Aluno"); })->get();
         return view('site.aluno.index',compact('alunos'));
     }
 
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
      public function show($id)
     {
         $aluno = $this->alunos->find(Crypt::decrypt($id));
