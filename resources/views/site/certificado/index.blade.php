@@ -21,7 +21,7 @@
         </div>
     @endif
 
-    @if (isset($aluno)&&($aluno->carga_horaria_complementar<$aluno->curso->carga_horaria_complementar))
+    @if (isset($gestorCargaHoraria)&&($gestorCargaHoraria==true))
         <div class="container-fluid create-section">
             <a href="{{route('certificado.create', Crypt::encrypt($aluno->id))}}" class="btn btn-outline-primary">+ Criar Novo</a>
         </div>
@@ -61,7 +61,7 @@
                         </td>
                         <td >
                             <a href="{{route('certificado.show', Crypt::encrypt($certificado->id))}}" class="btn btn-info">Visualizar</a>
-                            
+
                         </td>
 
                     </tr>

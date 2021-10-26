@@ -11,6 +11,7 @@ use App\Models\Entities\StatusCertificado;
 use App\Models\Converters;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\CertificadoRequest;
+use App\Models\CargaHoraria;
 
 class CertificadoController extends Controller
 {
@@ -41,9 +42,7 @@ class CertificadoController extends Controller
     {
         if(Auth::user()->roles->first()->id==2){
             $aluno = Auth::user();
-            $certificados = $aluno->certificadoRelationship;
-            $porcentagem = ((int)(($aluno->carga_horaria_complementar/$aluno->curso->carga_horaria_complementar)*100));
-            return view('site.certificado.index',compact('certificados','aluno','porcentagem'));
+            return redirect()->route('aluno.show', Crypt::encrypt($aluno->id));
         }else{
             $certificados = $this->certificados->all();
             return view('site.certificado.index',compact('certificados'));
@@ -131,7 +130,9 @@ class CertificadoController extends Controller
             'statusCertificado' => $request->statusCertificado??$certificado->statusCertificado,
         ]);
         $check = 'Certificado atualizado com sucesso!';
-        return redirect()->route('certificado.show', $id)->with('check', $check);
+        ;
+        return redirect()->route('aluno.show', Crypt::encrypt($this->certificados->find(Crypt::decrypt($id))->aluno->id))->with('check', $check);
+
     }
 
     /**
