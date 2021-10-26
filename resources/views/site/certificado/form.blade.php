@@ -25,9 +25,9 @@
             </div>
         @endif
     @if (isset($certificado))
-        {!! Form::open(['route' => array('certificado.update', Crypt::encrypt($certificado->id)), 'method' => 'PUT', 'name' => 'form'])!!}
+        {!! Form::open(['route' => array('certificado.update', Crypt::encrypt($certificado->id)), 'method' => 'PUT', 'name' => 'form', 'files' => true])!!}
     @else
-        {!! Form::open(['route' => array('certificado.store', Crypt::encrypt($aluno->id)), 'method' => 'POST', 'name' => 'form']) !!}
+        {!! Form::open(['route' => array('certificado.store', Crypt::encrypt($aluno->id)), 'method' => 'POST', 'name' => 'form', 'files' => true]) !!}
     @endif
     <div class="container-fluid">
         {!!Form::label('titulo', 'Título:', ['class' => 'form-check-label'])!!}
@@ -46,7 +46,11 @@
             {!!Form::label('statusCertificado', 'Situação:', ['class' => 'form-check-label'])!!}
             {!!Form::select('statusCertificado', $statusCertificados, isset($certificado) ? $certificado->statusCertificado->id : null, ['class' => 'form-control', Auth::user()->roles->first()->id==1 ? null : 'disabled','id'=> 'statusCertificado', $form??null])!!}
         @endif
-
+        <div>
+            {!!Form::label('arquivo', 'Arquivo:', ['class' => 'form-check-label'])!!}
+            {!!Form::file('arquivo', ['class' => $errors->has('titulo') ? 'form-control is-invalid' : 'form-control', 'accept'=>"image/*", $form??null])!!}
+            <img id="certificado_img" src="{{isset($certificado)?url("storage/{$certificado->arquivo}"):'#'}}" alt="Seu Certificado" style="max-height: 100px; margin-top: 8px"/>
+        </div>
         @if(isset($certificado))
             <button id="edit" type="button" class="btn btn-info" onclick="abilitarEdicao($(this))">
                 {{isset($form)?'Modificar':'Preservar'}}
@@ -57,26 +61,10 @@
             Salvar
         </button>
 
-        @if ($certificado->statusCertificado->id!=2)
+        @if ((isset($certificado))&&($certificado->statusCertificado->id!=2))
             <button id='excluir' type="button" class="btn btn-danger" data-toggle="modal" data-target="#exclusaoModal" {{isset($form) ? $form : null}}>
                 Excluir
             </button>
-            <!-- Modal -->
-            <div class="modal fade" id="exclusaoModal" tabindex="-1" role="dialog" aria-labelledby="exclusaoModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-body">
-                            Você deseja excluir este certificado?
-                            <hr/>
-                            <button type="button" class="btn btn btn-success" data-dismiss="modal">Não</button>
-                            {!! Form::open(['route' => array('certificado.destroy', Crypt::encrypt($certificado->id)), 'method' => 'DELETE', 'name' => 'form'])!!}
-                                {!! Form::submit('Sim', ['class' => 'btn btn-danger']); !!}
-                            {!! Form::close() !!}
-                        </div>
-                    </div>
-                </div>
-            </div>
-
         @endif
         <!-- Modal -->
         <div class="modal fade" id="confirmacaoModal" tabindex="-1" role="dialog" aria-labelledby="confirmacaoModalLabel" aria-hidden="true">
@@ -94,6 +82,24 @@
     </div>
 
     {!! Form::close() !!}
+    @if ((isset($certificado))&&($certificado->statusCertificado->id!=2))
+            <!-- Modal -->
+            <div class="modal fade" id="exclusaoModal" tabindex="-1" role="dialog" aria-labelledby="exclusaoModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            Você deseja excluir este certificado?
+                            <hr/>
+                            <button type="button" class="btn btn btn-success" data-dismiss="modal">Não</button>
+                            {!! Form::open(['route' => array('certificado.destroy', Crypt::encrypt($certificado->id)), 'method' => 'DELETE', 'name' => 'form'])!!}
+                                {!! Form::submit('Sim', ['class' => 'btn btn-danger']); !!}
+                            {!! Form::close() !!}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        @endif
 @stop
 
 @section('js')
@@ -103,6 +109,12 @@
                 $("#carga_horaria").val(this.value.match(/[0-9]*/));
             });
         });
+        arquivo.onchange = evt => {
+            const [file] = arquivo.files
+            if (file) {
+                certificado_img.src = URL.createObjectURL(file)
+            }
+        }
     </script>
     @if(isset($certificado))
         <script>
@@ -114,6 +126,7 @@
                 $("#statusCertificado").prop('disabled', true);
                 $("#salvar").prop('disabled', true);
                 $("#excluir").prop('disabled', true);
+                $("#arquivo").prop('disabled', true);
                 //Modifica Texto do Botao
                 $(botao).html('Modificar');
                 //Modifica função do Botao
@@ -124,6 +137,8 @@
                 $("#carga_horaria").val("{{$certificado->carga_horaria}}");
                 $("#tipoCertificado").val("{{$certificado->tipoCertificado->id}}");
                 $("#statusCertificado").val("{{$certificado->statusCertificado->id}}");
+                $("#arquivo").val("");
+                certificado_img.setAttribute('src', "{{url("storage/{$certificado->arquivo}")}}");
 
 
             }
@@ -134,6 +149,7 @@
                 $("#statusCertificado").prop('disabled', false);
                 $("#salvar").prop('disabled', false);
                 $("#excluir").prop('disabled', false);
+                $("#arquivo").prop('disabled', false);
 
                 $(botao).html('Preservar');
                 botao.attr('onclick', 'desabilitarEdicao($(this));');

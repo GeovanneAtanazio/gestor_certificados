@@ -18,6 +18,7 @@ class CreateCertificadosTable extends Migration
 
             $table->string('titulo');
             $table->integer('carga_horaria');
+            $table->string('arquivo');
 
             $table->foreignId('user_id')->constrained('users');
             $table->foreignId('status_certificado_id')->constrained('status_certificados');

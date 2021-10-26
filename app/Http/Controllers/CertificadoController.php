@@ -73,8 +73,10 @@ class CertificadoController extends Controller
      */
     public function store(CertificadoRequest $request, $id)
     {
+
         $certificado = $this->certificados->create([
             'titulo' => $request->titulo,
+            'arquivo' => $request->arquivo->store('certificados'),
             'carga_horaria' => $request->carga_horaria,
             'tipoCertificado' => $request->tipoCertificado,
             'statusCertificado' => $request->statusCertificado??1,
@@ -121,7 +123,13 @@ class CertificadoController extends Controller
     public function update(CertificadoRequest $request, $id)
     {
         $certificado = $this->certificados->find(Crypt::decrypt($id));
-        $certificado = $certificado->update($request->all());
+        $certificado = $certificado->update([
+            'titulo' => $request->titulo,
+            'arquivo' => isset($request->arquivo)?$request->arquivo->store('certificados'):$certificado->arquivo,
+            'carga_horaria' => $request->carga_horaria,
+            'tipoCertificado' => $request->tipoCertificado,
+            'statusCertificado' => $request->statusCertificado??$certificado->statusCertificado,
+        ]);
         $check = 'Certificado atualizado com sucesso!';
         return redirect()->route('certificado.show', $id)->with('check', $check);
     }

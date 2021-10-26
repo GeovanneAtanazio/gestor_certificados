@@ -23,9 +23,11 @@ class CertificadoRequest extends FormRequest
      */
     public function rules()
     {
+
         return [
             'titulo' => 'required',
-            'carga_horaria' => 'required'
+            'carga_horaria' => 'required',
+            'arquivo' => 'required'.(isset($this->certificado)?$this->certificado:null).'|image|mimes:jpeg,png,jpg,gif,svg'
         ];
     }
 }
