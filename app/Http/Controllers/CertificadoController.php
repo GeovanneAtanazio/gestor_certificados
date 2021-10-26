@@ -12,13 +12,14 @@ use App\Models\Converters;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\CertificadoRequest;
 use App\Models\CargaHoraria;
+use App\Models\Logger;
 
 class CertificadoController extends Controller
 {
     /**
      * Global private declarations.
      */
-    private $certificados, $tiposCertificados, $statusCertificados, $aluno;
+    private $certificados, $tiposCertificados, $statusCertificados, $aluno, $logger;
 
     /**
      * Instantiate a new controller instance.
@@ -31,6 +32,7 @@ class CertificadoController extends Controller
         $this->tiposCertificados = Converters::convert_object_to_array(TipoCertificado::all(),'id','nome');
         $this->statusCertificados = Converters::convert_object_to_array(StatusCertificado::all(),'id','nome');
         $this->aluno = new User;
+        $this->logger = new Logger;
         $this->middleware('permission:certificado.index', ['only' => ['index']]);
         $this->middleware('permission:certificado.create', ['only' => ['create']]);
         $this->middleware('permission:certificado.store', ['only' => ['store']]);
@@ -48,9 +50,11 @@ class CertificadoController extends Controller
     {
         if(Auth::user()->roles->first()->id==2){
             $aluno = Auth::user();
+            $this->logger->log('info','Entrou na listagem de certificados;');
             return redirect()->route('aluno.show', Crypt::encrypt($aluno->id));
         }else{
             $certificados = $this->certificados->all();
+            $this->logger->log('info','Entrou na listagem de certificados;');
             return view('site.certificado.index',compact('certificados'));
         }
 
@@ -67,6 +71,7 @@ class CertificadoController extends Controller
         $aluno = $this->aluno->find(Crypt::decrypt($id));
         $tiposCertificados = $this->tiposCertificados;
         $statusCertificados = $this->statusCertificados;
+        $this->logger->log('info','Entrou na criação de certificados;');
         return view('site.certificado.form',compact('tiposCertificados','statusCertificados','aluno'));
 
     }
@@ -89,6 +94,7 @@ class CertificadoController extends Controller
             'statusCertificado' => $request->statusCertificado??1,
             'aluno' => Crypt::decrypt($id),
         ]);
+        $this->logger->log('info','Cadastrou um novo certificado '.$certificado.';');
         $check = 'Certificado criado com sucesso!';
         CargaHoraria::gerenciaCargaHoraria($certificado->aluno,$certificado->aluno->certificadoRelationship);
         return redirect()->route('aluno.show', $id)->with('check', $check);
@@ -106,6 +112,7 @@ class CertificadoController extends Controller
         $tiposCertificados = $this->tiposCertificados;
         $statusCertificados = $this->statusCertificados;
         $form = 'disabled';
+        $this->logger->log('info','Entrou na visualização do certificado '.$certificado.';');
         return view('site.certificado.form',compact('certificado','tiposCertificados','statusCertificados','form'));
 
     }
@@ -139,6 +146,8 @@ class CertificadoController extends Controller
             'statusCertificado' => $request->statusCertificado??$certificado->statusCertificado,
         ]);
         $certificado = $this->certificados->find(Crypt::decrypt($id));
+        $this->logger->log('info','Editou o certificado '.$certificado.';');
+
         CargaHoraria::gerenciaCargaHoraria($certificado->aluno,$certificado->aluno->certificadoRelationship);
         $check = 'Certificado atualizado com sucesso!';
         return redirect()->route('aluno.show', Crypt::encrypt($this->certificados->find(Crypt::decrypt($id))->aluno->id))->with('check', $check);
@@ -157,6 +166,7 @@ class CertificadoController extends Controller
         $aluno = $certificado->aluno->id;
         $certificado->delete();
         $check = 'Certificado excluído com sucesso!';
+        $this->logger->log('info','Excluio o '.$certificado.';');
         return redirect()->route('aluno.show', Crypt::encrypt($aluno))->with('check', $check);
     }
 }
