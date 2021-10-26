@@ -123,7 +123,10 @@
                 $("#titulo").prop('disabled', true);
                 $("#carga_horaria").prop('disabled', true);
                 $("#tipoCertificado").prop('disabled', true);
-                $("#statusCertificado").prop('disabled', true);
+                if ({{Auth::user()->roles->first()->id}}==1) {
+                     $("#statusCertificado").prop('disabled', true);
+                }
+
                 $("#salvar").prop('disabled', true);
                 $("#excluir").prop('disabled', true);
                 $("#arquivo").prop('disabled', true);
@@ -146,7 +149,10 @@
                 $("#titulo").prop('disabled', false);
                 $("#carga_horaria").prop('disabled', false);
                 $("#tipoCertificado").prop('disabled', false);
-                $("#statusCertificado").prop('disabled', false);
+                if ({{Auth::user()->roles->first()->id}}==1) {
+                    $("#statusCertificado").prop('disabled', false);
+
+                }
                 $("#salvar").prop('disabled', false);
                 $("#excluir").prop('disabled', false);
                 $("#arquivo").prop('disabled', false);
