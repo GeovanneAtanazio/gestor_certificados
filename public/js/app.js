@@ -65907,14 +65907,6 @@ $(document).ready(function () {
       "caseInsensitive": true
     }
   });
-}); //método para bloquear botão de voltar do navegador
-
-$(document).ready(function () {
-  window.history.pushState(null, "", window.location.href);
-
-  window.onpopstate = function () {
-    window.history.pushState(null, "", window.location.href);
-  };
 }); //DataTables Plugins: Accent Neutralise
 
 (function () {
@@ -66074,8 +66066,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! D:\Softwares\gestor_certificados\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! D:\Softwares\gestor_certificados\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\Users\geovanne.atanazio\Documents\Softwares\gestor_certificados\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\Users\geovanne.atanazio\Documents\Softwares\gestor_certificados\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
