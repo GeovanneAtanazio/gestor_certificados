@@ -16,11 +16,10 @@ class CargaHoraria
     public static function gerenciaCargaHoraria(User $aluno, $certificados)
     {
 
-        $aluno->update([
+         return $aluno->update([
             'carga_horaria_complementar' => CargaHoraria::somatorioCertificados($certificados)
         ]);
 
-        return CargaHoraria::comparadorCargaHorariaCurso($aluno->carga_horaria_complementar, $aluno->curso->carga_horaria_complementar);
     }
 
     public static function somatorioCertificados($certificados)

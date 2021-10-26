@@ -82,6 +82,7 @@ class CertificadoController extends Controller
             'aluno' => Crypt::decrypt($id),
         ]);
         $check = 'Certificado criado com sucesso!';
+        CargaHoraria::gerenciaCargaHoraria($certificado->aluno,$certificado->aluno->certificadoRelationship);
         return redirect()->route('aluno.show', $id)->with('check', $check);
     }
 
@@ -129,8 +130,9 @@ class CertificadoController extends Controller
             'tipoCertificado' => $request->tipoCertificado,
             'statusCertificado' => $request->statusCertificado??$certificado->statusCertificado,
         ]);
+        $certificado = $this->certificados->find(Crypt::decrypt($id));
+        CargaHoraria::gerenciaCargaHoraria($certificado->aluno,$certificado->aluno->certificadoRelationship);
         $check = 'Certificado atualizado com sucesso!';
-        ;
         return redirect()->route('aluno.show', Crypt::encrypt($this->certificados->find(Crypt::decrypt($id))->aluno->id))->with('check', $check);
 
     }

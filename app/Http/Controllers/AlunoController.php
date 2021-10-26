@@ -35,7 +35,7 @@ class AlunoController extends Controller
         $aluno = $this->alunos->find(Crypt::decrypt($id));
         $porcentagem = CargaHoraria::cargaHorariaComplementarCursada($aluno);
         $certificados = $aluno->certificadoRelationship;
-        $gestorCargaHoraria = CargaHoraria::gerenciaCargaHoraria($aluno,$certificados);
+        $gestorCargaHoraria = CargaHoraria::comparadorCargaHorariaCurso($aluno->carga_horaria_complementar, $aluno->curso->carga_horaria_complementar);
         return view('site.certificado.index',compact('certificados','aluno','porcentagem','gestorCargaHoraria'));
     }
 }
