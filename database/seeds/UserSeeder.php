@@ -29,7 +29,7 @@ class UserSeeder extends Seeder
             'password'  =>  bcrypt('123456789'),
             'carga_horaria_obrigatoria' => '30',
             'carga_horaria_optativa' => '4',
-            'carga_horaria_complementar' => '50',
+            'carga_horaria_complementar' => '0',
             'curso_id' => '1'
         ]);
 
@@ -38,7 +38,7 @@ class UserSeeder extends Seeder
             'email'=> 'de_arrascaeta@unit.br',
             'password'  =>  bcrypt('123456789'),
             'carga_horaria_obrigatoria' => '30',
-            'carga_horaria_optativa' => '4',
+            'carga_horaria_optativa' => '6',
             'carga_horaria_complementar' => '50',
             'curso_id' => '3',
         ]);
@@ -48,7 +48,7 @@ class UserSeeder extends Seeder
             'email'=> 'oto_pata_mar@unit.br',
             'password'  =>  bcrypt('123456789'),
             'carga_horaria_obrigatoria' => '30',
-            'carga_horaria_optativa' => '4',
+            'carga_horaria_optativa' => '8',
             'carga_horaria_complementar' => '50',
             'curso_id' => '2',
         ]);
@@ -58,7 +58,7 @@ class UserSeeder extends Seeder
             'email'=> 'vapo_vapo@unit.br',
             'password'  =>  bcrypt('123456789'),
             'carga_horaria_obrigatoria' => '30',
-            'carga_horaria_optativa' => '4',
+            'carga_horaria_optativa' => '0',
             'carga_horaria_complementar' => '50',
             'curso_id' => '1',
         ]);

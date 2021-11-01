@@ -17,7 +17,8 @@ class CertificadoSeeder extends Seeder
             'carga_horaria' => '4',
             'user_id' => '3',
             'status_certificado_id' => '1',
-            'tipo_certificado_id' => '2'
+            'tipo_certificado_id' => '2',
+            'arquivo' => 'certificado.png',
         ]);
 
         DB::table('certificados')->insert([
@@ -26,7 +27,8 @@ class CertificadoSeeder extends Seeder
             'carga_horaria' => '6',
             'user_id' => '4',
             'status_certificado_id' => '2',
-            'tipo_certificado_id' => '3'
+            'tipo_certificado_id' => '3',
+            'arquivo' => 'certificado.png',
         ]);
 
         DB::table('certificados')->insert([
@@ -35,7 +37,8 @@ class CertificadoSeeder extends Seeder
             'carga_horaria' => '8',
             'user_id' => '5',
             'status_certificado_id' => '3',
-            'tipo_certificado_id' => '4'
+            'tipo_certificado_id' => '4',
+            'arquivo' => 'certificado.png',
         ]);
     }
 }
