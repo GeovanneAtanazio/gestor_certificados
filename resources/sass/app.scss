@@ -1,1 +1,40 @@
-//
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Nunito');
+
+// Variables
+@import 'variables';
+
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
+
+// DataTables
+@import url('https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css');
+
+.btn-info{
+    color: white;
+    margin: 0px 4px;
+}
+
+.create-section{
+    margin: 0px 0px 16px;
+}
+
+.progress{
+    margin-top: 8px;
+}
+
+
+td:last-child {
+    display: flex;
+}
+
+.btn-danger{
+    color: white;
+    margin: 0px 4px;
+}
+
+form{
+    .btn-warning{
+        margin: 8px 0px;
+    }
+}
