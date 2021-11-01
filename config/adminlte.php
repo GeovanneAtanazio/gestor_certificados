@@ -14,7 +14,7 @@ return [
     |
     */
 
-    'title' => 'AdminLTE 3',
+    'title' => 'Sistema Gestor de Certificados ',
     'title_prefix' => '',
     'title_postfix' => '',
 
