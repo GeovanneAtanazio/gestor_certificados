@@ -14,7 +14,7 @@ return [
     |
     */
 
-    'title' => 'AdminLTE 3',
+    'title' => 'Sistema Gestor de Certificados ',
     'title_prefix' => '',
     'title_postfix' => '',
 
@@ -45,7 +45,7 @@ return [
     |
     */
 
-    'logo' => '<b>Admin</b>LTE',
+    'logo' => 'Sistema Gestor de Certificados',
     'logo_img' => '',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
