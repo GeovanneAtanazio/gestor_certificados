@@ -21,7 +21,11 @@ php artisan key:generate
 ````
 php artisan migrate:refresh --seed
 ````
-## 6. Inicie o servidor de desenvolvimento local
+## 6. Gere o link simbolico necessário para salvar os arquivos submetidos no sistema
+````
+php artisan storage:link
+````
+## 7. Inicie o servidor de desenvolvimento local
 ````
 php artisan serve
 ````
