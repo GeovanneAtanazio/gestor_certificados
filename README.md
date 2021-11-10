@@ -3,7 +3,7 @@ Por favor, acesse [a página oficial de instalação do Laravel](https://laravel
 
 ## 1. Clone o repositório
 ````
- git clone https://github.com/DCOMP-UFS/PRATICAS.ACUDIR-SE.git
+ git clone https://github.com/GeovanneAtanazio/gestor_certificados.git
 ````
 ## 2. Instale todas as dependências utilizando o composer
 ````
@@ -28,4 +28,34 @@ php artisan storage:link
 ## 7. Inicie o servidor de desenvolvimento local
 ````
 php artisan serve
+````
+## 8. Acesso ao sistema
+
+### Gestores
+````
+'email'=> jj@unit.br,
+'senha'  => 123456789,
+````
+````
+'email'=> jd@unit.br,
+'password'  =>  123456789,
+````
+
+### Alunos
+
+````
+'email'=> gabigol@unit.br,
+'password'  =>  123456789
+````
+````
+'email'=> de_arrascaeta@unit.br,
+'password'  =>  123456789
+````
+````
+'email'=> oto_pata_mar@unit.br,
+'password'  =>  123456789
+````
+````
+'email'=> vapo_vapo@unit.br,
+'password'  =>  123456789
 ````
